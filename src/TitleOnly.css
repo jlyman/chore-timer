@@ -1,0 +1,12 @@
+.centering {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+}
+
+.centered-title {
+	flex: 1;
+	font-size: 8rem;
+  color: #5a8ab9;
+}
