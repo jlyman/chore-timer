@@ -7,11 +7,11 @@ import './App.css'
 const config = {
   times: [
     {
-      endTime: '08:05:00',
+      endTime: '07:45:00',
       name: 'Morning Chores',
     },
     {
-      endTime: '16:00:00',
+      endTime: '15:30:00',
       name: 'Afternoon Chores',
     },
     {
@@ -19,7 +19,7 @@ const config = {
       name: 'Nighttime Chores',
     },
   ],
-  countdownDuration: 60 * 60 * 1000,
+  countdownDuration: 30 * 60 * 1000,
 }
 
 function getTimeRemaining(endtime){
