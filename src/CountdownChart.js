@@ -3,8 +3,8 @@ import PieChart from 'react-simple-pie-chart'
 
 const CountdownChart = ({remaining, countdownDuration}) => {
 	let color = '#1DC80D'
-  if (remaining.minutes < 30) color = '#FDC70D'
-  if (remaining.minutes < 10) color = '#f00'
+  if (remaining.minutes < 15) color = '#FDC70D'
+  if (remaining.minutes < 7) color = '#f00'
 
 	return (
 		<PieChart
@@ -14,7 +14,7 @@ const CountdownChart = ({remaining, countdownDuration}) => {
           value: remaining.total,
         },
         {
-          color: '#F7F7F7',
+          color: '#DBDBDB',
           value: countdownDuration-remaining.total,
         },
       ]}
