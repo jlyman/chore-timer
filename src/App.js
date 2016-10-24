@@ -44,7 +44,12 @@ class App extends Component {
   constructor(props) {
     super(props)
 
+    this.state = {
+      manualTimer: null,
+    }
+
     this.tick = this.tick.bind(this)
+    this.startManualTimer = this.startManualTimer.bind(this)
   }
 
   componentWillMount() {
@@ -55,27 +60,45 @@ class App extends Component {
     this.forceUpdate()
   }
 
+  startManualTimer() {
+    this.setState({
+      manualTimer: new Date(new Date().getTime() + config.countdownDuration)
+    })
+  }
+
   render() {
     let displayEl
+    let upcomings = []
 
     // Find relevant time slot
-    const upcomings = config.times.filter(slot => getTimeRemaining(slot.endTime).total > 0)
+    if (this.state.manualTimer && this.state.manualTimer > new Date()) {
+      const nt = this.state.manualTimer
+      upcomings.push(
+        {
+          endTime: nt.getHours() + ":" + nt.getMinutes() + ":" + nt.getSeconds(),
+          name: 'Chores',
+        },
+      )
+    } else {
+      upcomings = config.times.filter(slot => getTimeRemaining(slot.endTime).total > 0)
+    }
 
     if (upcomings.length > 0) {
       const thisSlot = upcomings[0]
       const remaining = getTimeRemaining(thisSlot.endTime)
 
       if (remaining.total > config.countdownDuration) {
-        displayEl = <TitleOnly title={`Next Up: ${thisSlot.name}`} />
+        displayEl = <TitleOnly title={`Next Up: ${thisSlot.name}`} titleTapHandler={this.startManualTimer} />
       } else {
         displayEl =<CountdownDisplay
           slotName={thisSlot.name}
           remaining={remaining}
           countdownDuration={config.countdownDuration}
+          titleTapHandler={this.startManualTimer}
         />
       }
     } else {
-      displayEl = <TitleOnly title="Done for the day!" />
+      displayEl = <TitleOnly title="Done for the day!" titleTapHandler={this.startManualTimer} />
     }
 
     return (
