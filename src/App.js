@@ -72,10 +72,9 @@ class App extends Component {
 
     // Find relevant time slot
     if (this.state.manualTimer && this.state.manualTimer > new Date()) {
-      const nt = this.state.manualTimer
       upcomings.push(
         {
-          endTime: nt.getHours() + ":" + nt.getMinutes() + ":" + nt.getSeconds(),
+          endTime: this.state.manualTimer.toLocaleTimeString('en-US', { hour12: false }),
           name: 'Chores',
         },
       )
